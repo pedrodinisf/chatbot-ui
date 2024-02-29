@@ -1,10 +1,10 @@
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true"
-})
+});
 
 const withPWA = require("next-pwa")({
   dest: "public"
-})
+});
 
 module.exports = withBundleAnalyzer(
   withPWA({
@@ -27,6 +27,16 @@ module.exports = withBundleAnalyzer(
     },
     experimental: {
       serverComponentsExternalPackages: ["sharp", "onnxruntime-node"]
+    },
+
+    // Add metadataBase configuration
+    env: {
+      metadataBase: "https://pedroferreira.org"
+    },
+
+    // Optionally, you can also add generateBuildId function
+    generateBuildId: async () => {
+      return 'your-build-id'; // you can use any string here
     }
   })
-)
+);
